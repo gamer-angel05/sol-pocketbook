@@ -1,55 +1,54 @@
+html {
+	height:  100%;
+}
+
 body {
-	background-color:  rgba(16, 64, 13, 0.5);
+	background-color:  rgba(16, 64, 13, 1);
+	height:  100%;
+	overflow: hidden;
 }
 
 .bg-cover {
 	background-size: cover !important;
-	background-color: #10400d;
-	/*padding-top: 20px;*/
-	padding-bottom: 10px;
 	background: url("../css/bg-small.png") no-repeat center fixed;
-	background-size: cover;
-	min-height: 100vh;
-
 }
 
 .header {
 	background-color:  rgba(16, 64, 13, 0.5);
-	min-height: 14%;
 	color: #FFFFFF;
-	padding-top: 2vh;
-	padding-bottom: 3vh;
+	padding-top: 10px;
+	padding-bottom: 30px;
+}
+
+.scroll-row {
+	background-color:  rgba(7, 52, 4, 0.8);
+	min-height: 0; /* to enable flex on firefox */
+}
+
+.scroll-column {
+	overflow-y: auto;
+}
+
+.footer {
+	color: #FFFFFF;
 }
 
 #img-logo {
 	max-width: 300px;
-	min-width: 300px;
 }
 
 #img-crest {
-	max-width: 100px;
+	width: 120px;
 }
 
 #button_section {
 	min-width: 300px;
 }
 
-.h2 {
-	padding-bottom: 20px;
+h2 {
+	padding-bottom: 10px;
 }
 
-#main {
-	background-color:  rgba(7, 52, 4, 0.8);
-	position: fixed;
-	height: 80vh;
-	/*width: auto;*/
-	overflow-y: scroll;
-	padding-bottom: 200px;
-}
-
-#tables_info, #tables_lottery {
-	padding-top:  20px;
-}
 
 p, h4 {
 	color:  #FFFFFF;
@@ -61,8 +60,4 @@ a {
 
 a:hover {
 	color: #3A9AC9;
-}
-
-@media (prefers-color-scheme: dark) {
-
 }
