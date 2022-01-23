@@ -20,12 +20,12 @@ body {
 	padding-bottom: 30px;
 }
 
-.scroll-row {
+.scroll_row {
 	background-color:  rgba(7, 52, 4, 0.8);
 	min-height: 0; /* to enable flex on firefox */
 }
 
-.scroll-column {
+.scroll_column {
 	overflow-y: auto;
 }
 
