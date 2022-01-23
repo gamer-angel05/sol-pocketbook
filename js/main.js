@@ -30,6 +30,7 @@ function add_content(title, content, images, index) {
 	if (images) {
 		s += '<img src="'+ images + '"/>'
 	}
+	s += "</br></br>"
 	$("#scroll_content").append(s);
 }
 

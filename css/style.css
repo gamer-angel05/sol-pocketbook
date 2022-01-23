@@ -42,7 +42,7 @@ body {
 }
 
 #img-crest {
-	width: 120px;
+	max-width: 100px;
 }
 
 #button_section {
@@ -51,6 +51,10 @@ body {
 
 h2 {
 	padding-bottom: 10px;
+}
+
+h4 {
+	padding-top: 10px;
 }
 
 
