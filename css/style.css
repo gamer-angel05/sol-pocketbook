@@ -20,16 +20,12 @@ body {
 	padding-bottom: 30px;
 }
 
-#scroll_dropmenu {
-	min-width: 300px;
-}
-
-.scroll_row {
+.scroll-row {
 	background-color:  rgba(7, 52, 4, 0.8);
 	min-height: 0; /* to enable flex on firefox */
 }
 
-.scroll_column {
+.scroll-column {
 	overflow-y: auto;
 }
 
@@ -64,8 +60,4 @@ a {
 
 a:hover {
 	color: #3A9AC9;
-}
-
-img {
-	max-width: 100%;
 }
