@@ -38,13 +38,15 @@ function substitute_tags(text, tags) {
 
 	if (matches && tags) {
 		let result = "";
+		let label = matches[1].split(":", 2);
 
-		switch (matches[1]) {
+		switch (label[0]) {
 			case 'image':
 				result = get_image(tags.shift());
 				break;
 			case 'link':
-				result = get_link(tags.shift());
+				result = get_link(tags.shift(), label[1]);
+				console.log(result);
 				break;
 		}
 		text = text.replace(/\[(.*?)\]/, result);
@@ -57,8 +59,8 @@ function get_image(url) {
 	return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" class="img-max" /></a>';
 }
 
-function get_link(url, title="link") {
-	return '<a target="_blank" href="' + url + '">' + title + '</a>';
+function get_link(url, title) {
+	return '<a target="_blank" href="' + url + '">' + (title || url || "link") + '</a>';
 }
 
 function add_dropdownmenu(title, index) {
