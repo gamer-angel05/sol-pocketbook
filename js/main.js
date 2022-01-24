@@ -55,7 +55,7 @@ function substitute_tags(text, tags) {
 }
 
 function get_image(url) {
-	return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" class="img-fluid" /></a>';
+	return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" class="img-max img-fluid" /></a>';
 }
 
 function get_link(url, title="link") {
