@@ -46,7 +46,6 @@ function substitute_tags(text, tags) {
 				break;
 			case 'link':
 				result = get_link(tags.shift(), label[1]);
-				console.log(result);
 				break;
 		}
 		text = text.replace(/\[(.*?)\]/, result);
