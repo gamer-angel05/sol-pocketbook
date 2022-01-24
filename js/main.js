@@ -25,6 +25,7 @@ function add_data(documentation) {
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 			if (article.Text) {
 				add_dropdownmenu("--" + article.Article, article_index);
+				article.Text = substitute_tags(article.Text, tags);
 				add_content(article.Article, article.Text, article_index);
 			};
 		});
@@ -32,7 +33,34 @@ function add_data(documentation) {
 }
 
 
-function create_link() {}
+function substitute_tags(text, tags) {
+	let matches = text.match(/\[(.*?)\]/);
+
+	if (matches && tags) {
+		let submatch = matches[1]
+		let result = "";
+
+		switch (submatch) {
+			case 'image':
+				result = get_image(tags.shift());
+				break;
+			case 'link':
+				result = get_link(tags.shift());
+				break;
+		}
+		text = text.replace(/\[(.*?)\]/, result);
+		return substitute_tags(text, tags);
+	}
+	return text
+}
+
+function get_image(url) {
+	return '<img src="' + url + '"/>';
+}
+
+function get_link(url) {
+	return '<a href="' + url + '">link</a>';
+}
 
 function add_dropdownmenu(title, index) {
 	let link = '<a class="dropdown-item" href="#' + index + '">' + title + '</a>';
@@ -41,11 +69,7 @@ function add_dropdownmenu(title, index) {
 
 function add_content(title, content, index) {
 	var s = '<h4 id="' + index + '">' + title + '</h4>';
-	s += '<p style="white-space: pre-wrap;">' + content + '</p>';
-	/*if (images) {
-		s += '<img src="'+ images + '"/>'
-	}*/
-	s += "</br>"
+	s += '<p style="white-space: pre-wrap;">' + content + '</p></br>';
 	$("#scroll_content").append(s);
 }
 
