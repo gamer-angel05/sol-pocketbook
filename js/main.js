@@ -23,7 +23,8 @@ function add_data(documentation) {
 		articles.forEach((article, index) => {
 			let article_index = topic_index + "." + index;
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
-			add_dropdownmenu(article.Article, article_index);
+			add_dropdownmenu("--" + article.Article, article_index);
+			console.log(article.Text);
 			add_content(article.Article, article.Text, article_index);
 		});
 	});
@@ -43,7 +44,7 @@ function add_content(title, content, index) {
 	/*if (images) {
 		s += '<img src="'+ images + '"/>'
 	}*/
-	s += "</br></br>"
+	s += "</br>"
 	$("#scroll_content").append(s);
 }
 
