@@ -37,10 +37,9 @@ function substitute_tags(text, tags) {
 	let matches = text.match(/\[(.*?)\]/);
 
 	if (matches && tags) {
-		let submatch = matches[1]
 		let result = "";
 
-		switch (submatch) {
+		switch (matches[1]) {
 			case 'image':
 				result = get_image(tags.shift());
 				break;

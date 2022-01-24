@@ -82,5 +82,7 @@ a:hover {
 
 .img-max {
 	width: 100%;
-	/*max-width: 700px;*/
+	max-width:50%; 
+	float:right; 
+	margin-left:20px;
 }
