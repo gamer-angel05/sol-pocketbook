@@ -23,9 +23,10 @@ function add_data(documentation) {
 		articles.forEach((article, index) => {
 			let article_index = topic_index + "." + index;
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
-			add_dropdownmenu("--" + article.Article, article_index);
-			console.log(article.Text);
-			add_content(article.Article, article.Text, article_index);
+			if (article.Text) {
+				add_dropdownmenu("--" + article.Article, article_index);
+				add_content(article.Article, article.Text, article_index);
+			};
 		});
 	});
 }
@@ -40,7 +41,7 @@ function add_dropdownmenu(title, index) {
 
 function add_content(title, content, index) {
 	var s = '<h4 id="' + index + '">' + title + '</h4>';
-	s += '<p>' + content + '</p>';
+	s += '<p style="white-space: pre-wrap;">' + content + '</p>';
 	/*if (images) {
 		s += '<img src="'+ images + '"/>'
 	}*/
