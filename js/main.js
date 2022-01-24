@@ -55,11 +55,11 @@ function substitute_tags(text, tags) {
 }
 
 function get_image(url) {
-	return '<img src="' + url + '"/>';
+	return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '"/></a>';
 }
 
-function get_link(url) {
-	return '<a href="' + url + '">link</a>';
+function get_link(url, title="link") {
+	return '<a target="_blank" href="' + url + '">' + title + '</a>';
 }
 
 function add_dropdownmenu(title, index) {
@@ -72,5 +72,12 @@ function add_content(title, content, index) {
 	s += '<p style="white-space: pre-wrap;">' + content + '</p></br>';
 	$("#scroll_content").append(s);
 }
+
+
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
 
 $(document).ready(__init__);
