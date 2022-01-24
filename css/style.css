@@ -20,6 +20,11 @@ body {
 	padding-bottom: 20px;
 }
 
+.dropdown-menu {
+	max-height: 200px;
+    overflow-y: auto;
+}
+
 #scroll_dropmenu {
 	min-width: 300px;
 }
@@ -51,11 +56,11 @@ body {
 }
 
 h2 {
-	padding-bottom: 10px;
+	padding-bottom: 20px;
 }
 
 h4 {
-	padding-top: 10px;
+	padding-top: 5px;
 }
 
 
