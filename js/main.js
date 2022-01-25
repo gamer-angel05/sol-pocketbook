@@ -23,7 +23,11 @@ function add_data(documentation) {
 		articles.forEach((article, index) => {
 			let article_index = topic_index + "." + index;
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
-			if (article.Text) {
+
+			if (!article.Article && article.Text) {
+				article.Text = substitute_tags(article.Text, tags);
+				add_content(article.Article, article.Text, article_index);
+			} else if (article.Text) {
 				add_dropdownmenu("--" + article.Article, article_index);
 				article.Text = substitute_tags(article.Text, tags);
 				add_content(article.Article, article.Text, article_index);
