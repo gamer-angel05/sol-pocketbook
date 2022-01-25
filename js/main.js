@@ -16,21 +16,22 @@ function add_data(documentation) {
 	let topics = [...new Set(documentation.map(({Topic}) => Topic))];
 
 	topics.forEach((topic, topic_index) => {
-		add_dropdownmenu(topic, topic_index);
-		$("#scroll_content").append("<h2 id=" + topic_index + ">" + topic + "</h2>");
+		topic_href = topic.replace(" ", "-").toLowerCase()
+		add_dropdownmenu(topic, topic_href);
+		$("#scroll_content").append("<h2 id=" + topic_href + ">" + topic + "</h2>");
 
 		let articles = documentation.filter((e) => e.Topic === topic);
 		articles.forEach((article, index) => {
-			let article_index = topic_index + "." + index;
+			let article_href = topic.replace(" ", "-").toLowerCase() + "-" + article.Article.replace(" ", "-").toLowerCase()
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
 			if (!article.Article && article.Text) {
 				article.Text = substitute_tags(article.Text, tags);
-				add_content(article.Article, article.Text, article_index);
+				add_content(article.Article, article.Text, article_href);
 			} else if (article.Text) {
-				add_dropdownmenu("--" + article.Article, article_index);
+				add_dropdownmenu("--" + article.Article, article_href);
 				article.Text = substitute_tags(article.Text, tags);
-				add_content(article.Article, article.Text, article_index);
+				add_content(article.Article, article.Text, article_href);
 			};
 		});
 		$("#scroll_content").append('<hr class="divider"><br>');
