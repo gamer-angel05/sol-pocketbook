@@ -85,3 +85,23 @@ a:hover {
 	float:right; 
 	margin-left:20px;
 }
+
+hr.divider {
+  padding: 20px;
+  /*border: none;*/
+  /*border-top: 5px double #fafffc;
+  border-bottom: 5px double #fafffc;*/
+  color: #fafffc;
+  text-align: center;
+  margin: 30px;
+}
+
+hr.divider:after {
+  content: "⊕ ⊕ ⊕";
+  display: inline-block;
+  position: relative;
+  top: -0.1em;
+  font-size: 0.7em;
+  padding: 0 0.5em;
+  font-weight: normal;
+}
