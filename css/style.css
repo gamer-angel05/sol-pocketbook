@@ -97,11 +97,11 @@ hr.divider {
 }
 
 hr.divider:after {
-  content: "⊕ ⊕ ⊕";
+  content: ". . .";
   display: inline-block;
   position: relative;
   top: -0.1em;
-  font-size: 0.7em;
+  font-size: 2em;
   padding: 0 0.5em;
   font-weight: normal;
 }
