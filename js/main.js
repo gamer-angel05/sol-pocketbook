@@ -34,7 +34,7 @@ function add_data(documentation) {
 				add_content(article.Article, article.Text, article_href);
 			};
 		});
-		$("#scroll_content").append('<hr class="divider"><br>');
+		$("#scroll_content").append('<hr class="divider">');
 	});
 }
 

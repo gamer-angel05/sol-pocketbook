@@ -10,7 +10,7 @@ body {
 
 .bg-cover {
 	background-size: cover !important;
-	background: url("../css/bg-small.png") no-repeat center fixed;
+	background: url("../css/bg-xsmall.png") no-repeat center fixed;
 }
 
 #main {
@@ -87,21 +87,6 @@ a:hover {
 }
 
 hr.divider {
-  padding: 20px;
-  /*border: none;*/
-  /*border-top: 5px double #fafffc;
-  border-bottom: 5px double #fafffc;*/
-  color: #fafffc;
-  text-align: center;
-  margin: 30px;
-}
-
-hr.divider:after {
-  content: ". . .";
-  display: inline-block;
-  position: relative;
-  top: -0.1em;
-  font-size: 2em;
-  padding: 0 0.5em;
-  font-weight: normal;
+  border-bottom: 1px solid #009f4d;
+  margin: 50px;
 }
