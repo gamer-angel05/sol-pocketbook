@@ -22,17 +22,17 @@ function add_data(documentation) {
 
 		let articles = documentation.filter((e) => e.Topic === topic);
 		articles.forEach((article, index) => {
-			let article_href = topic.replace(" ", "-").toLowerCase() + "-" + article.Article.replace(" ", "-").toLowerCase()
+			let article_href = topic.replace(" ", "-").toLowerCase();
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
-			if (!article.Article && article.Text) {
+			if (article.Text) {
+				if (article.Article) {
+					article_href += "-" + article.Article.replace(" ", "-").toLowerCase();
+					add_dropdownmenu("--" + article.Article, article_href);
+				};
 				article.Text = substitute_tags(article.Text, tags);
 				add_content(article.Article, article.Text, article_href);
-			} else if (article.Text) {
-				add_dropdownmenu("--" + article.Article, article_href);
-				article.Text = substitute_tags(article.Text, tags);
-				add_content(article.Article, article.Text, article_href);
-			};
+			}
 		});
 		$("#scroll_content").append('<hr class="divider">');
 	});
