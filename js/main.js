@@ -16,13 +16,12 @@ function add_data(documentation) {
 	let topics = [...new Set(documentation.map(({Topic}) => Topic))];
 
 	topics.forEach((topic, topic_index) => {
-		topic_href = topic.replace(" ", "-").toLowerCase()
-		add_dropdownmenu(topic, topic_href);
-		$("#scroll_content").append("<h2 id=" + topic_href + ">" + topic + "</h2>");
+		let article_href = topic.replace(" ", "-").toLowerCase()
+		add_dropdownmenu(topic, article_href);
+		$("#scroll_content").append("<h2 id=" + article_href + ">" + topic + "</h2>");
 
 		let articles = documentation.filter((e) => e.Topic === topic);
 		articles.forEach((article, index) => {
-			let article_href = topic.replace(" ", "-").toLowerCase();
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
 			if (article.Text) {
