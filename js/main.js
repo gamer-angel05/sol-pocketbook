@@ -25,12 +25,15 @@ function add_data(documentation) {
 			let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
 			if (article.Text) {
+				let href = article_href;
+
 				if (article.Article) {
-					article_href += "-" + article.Article.replace(" ", "-").toLowerCase();
-					add_dropdownmenu("--" + article.Article, article_href);
+
+					href += "-" + article.Article.replace(" ", "-").toLowerCase();
+					add_dropdownmenu("--" + article.Article, href);
 				};
 				article.Text = substitute_tags(article.Text, tags);
-				add_content(article.Article, article.Text, article_href);
+				add_content(article.Article, article.Text, href);
 			}
 		});
 		$("#scroll_content").append('<hr class="divider">');
