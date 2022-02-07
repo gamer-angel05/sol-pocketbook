@@ -9,7 +9,7 @@ function __init__() {
 	.then( data => {
 		add_data(data);
 		if (url) {
-			$(url).click();
+			$(url).focus();
 		};
 	});
 }
