@@ -8,8 +8,9 @@ function __init__() {
 	.then( response => response.json())
 	.then( data => {
 		add_data(data);
+		console.log(url);
 		if (url) {
-			$(url).focus();
+			window.location.hash = url;
 		};
 	});
 }
