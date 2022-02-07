@@ -3,10 +3,14 @@ let publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNg
 function __init__() {
 	/*	Load the public sheet data and cache it.
 	*/
+	var url = window.location.hash;
 	fetch(publicSpreadsheetDoc)
 	.then( response => response.json())
 	.then( data => {
 		add_data(data);
+		if (url) {
+			$(url).click();
+		};
 	});
 }
 
@@ -16,7 +20,7 @@ function add_data(documentation) {
 	let topics = [...new Set(documentation.map(({Topic}) => Topic))];
 
 	topics.forEach((topic, topic_index) => {
-		let article_href = topic.replace(" ", "-").toLowerCase()
+		let article_href = topic.replace(/ /g, "-").toLowerCase()
 		add_dropdownmenu(topic, article_href);
 		$("#scroll_content").append("<h2 id=" + article_href + ">" + topic + "</h2>");
 
@@ -28,8 +32,7 @@ function add_data(documentation) {
 				let href = article_href;
 
 				if (article.Article) {
-
-					href += "-" + article.Article.replace(" ", "-").toLowerCase();
+					href += "-" + article.Article.replace(/ /g, "-").toLowerCase();
 					add_dropdownmenu("--" + article.Article, href);
 				};
 				article.Text = substitute_tags(article.Text, tags);
