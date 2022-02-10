@@ -49,6 +49,9 @@ function get_image(url) {
 }
 
 function get_link(url, title) {
+	if (url.startsWith('#')) {
+		return '<a href="' + url + '">' + (title || url || "link") + '</a>';
+	}
 	return '<a target="_blank" href="' + url + '">' + (title || url || "link") + '</a>';
 }
 
