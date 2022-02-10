@@ -8,7 +8,6 @@ function __init__() {
 	.then( response => response.json())
 	.then( data => {
 		add_data(data);
-		console.log(url);
 		if (url) {
 			window.location.hash = url;
 		};
@@ -45,10 +44,14 @@ function add_data(documentation) {
 }
 
 function get_image(url) {
+	if (!url) return ""
+
 	return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" class="img-max" /></a>';
 }
 
 function get_link(url, title) {
+	if (!url) return title
+
 	if (url.startsWith('#')) {
 		return '<a href="' + url + '">' + (title || url || "link") + '</a>';
 	}
