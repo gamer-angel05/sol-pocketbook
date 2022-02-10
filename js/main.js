@@ -20,6 +20,8 @@ function add_data(documentation) {
 	let topics = [...new Set(documentation.map(({Topic}) => Topic))];
 
 	topics.forEach((topic, topic_index) => {
+		if (!topic) return
+
 		let article_href = topic.replace(/ /g, "-").toLowerCase()
 		add_dropdownmenu(topic, article_href);
 		$("#scroll_content").append("<h2 id=" + article_href + ">" + topic + "</h2>");
