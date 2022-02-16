@@ -94,3 +94,9 @@ hr.divider {
   border-bottom: 1px solid #009f4d;
   margin: 50px;
 }
+
+@media screen and (max-width: 600px) {
+  table {
+    font-size: 10px;
+  }
+}
