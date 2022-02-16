@@ -42,6 +42,9 @@ body {
 	overflow-y: auto;
 }
 
+.column-1 { font-weight:bold; }
+.column-2, .column-3, .column-4, .column-5 { text-align:right; }
+
 .footer {
 	background-color:  rgba(7, 52, 4, 0.8);
 	color: #FFFFFF;
