@@ -1,6 +1,7 @@
 html {
 	height:  100%;
 	scroll-behavior: smooth;
+	scroll-padding-top: 100px;
 }
 body {
 	background-color: rgba(16, 64, 13, 1);
@@ -60,9 +61,9 @@ nav.active-sticky {
 }
 /* Allow buffer so we don't scroll anchor links behind navbar */
 .article-href {
-	display: block;
+	/*display: block;
   margin-top: -100px;
-  padding-top: 100px;
+  padding-top: 100px;*/
 }
 
 /* Table content */
