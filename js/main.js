@@ -13,7 +13,7 @@ class formatData {
 
 			let article_href = topic.replace(/ /g, "-").toLowerCase()
 			this.addDropDownMenu(topic, article_href);
-			$("#scroll-content").append('<h2 id="' + article_href + '" class="article-href">' + topic + '</h2>');
+			$("#scroll-content").append('<h2 id="' + article_href + '">' + topic + '</h2>');
 
 			let articles = documentation.filter((e) => e.Topic === topic);
 			articles.forEach((article, index) => {
@@ -76,7 +76,7 @@ class formatData {
 	}
 
 	addContent(title, content, index) {
-		var s = title ? '<h4 id="' + index + '" class="article-href">' + title + '</h4>' : "";
+		var s = title ? '<h4 id="' + index + '">' + title + '</h4>' : "";
 		s += '<p style="white-space: pre-wrap;">' + content + '</p>';
 		$("#scroll-content").append(s);
 	}

@@ -5,17 +5,18 @@ function __init__() {
 		if there's an anchor hash, reload to force scroll
 		after content has been loaded.
 	*/
-	var url = location.hash;
+	var url = window.location.hash;
 	fetch(publicSpreadsheetDoc)
 	.then( response => response.json())
 	.then( data => {
 		new formatData(data);
-		if (url) {
-			location.hash = ""; // to work on mobile??
-			location.hash = url;
-		}
 		anchors.options.visible = "touch";
 		anchors.add("#scroll-content h2, #scroll-content h4");
+		
+		if (url) {
+			window.location.hash = ""; // to work on mobile??
+			window.location.hash = url;
+		}
 	})
 }
 
