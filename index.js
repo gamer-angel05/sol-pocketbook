@@ -11,7 +11,8 @@ function __init__() {
 	.then( data => {
 		new formatData(data);
 		if (url) {
-			location.hash = url;
+			location.hash = "";
+			location.hash = url; /* work on mobile?? */
 		}
 		anchors.options.visible = "touch";
 		anchors.add("#scroll-content h2, #scroll-content h4");
