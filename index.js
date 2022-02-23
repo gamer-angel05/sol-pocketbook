@@ -14,17 +14,10 @@ function __init__() {
 		anchors.add("#scroll-content h2, #scroll-content h4");
 		
 		if (url) {
-			/*window.location.hash = ""; // to work on mobile??
-			window.location.hash = url;*/
-			/*const offsetTop = document.querySelector(url).offsetTop;
- 
-		  	scroll({
-		    	top: offsetTop,
-		    	behavior: "smooth"
-		  	});*/
-
+			window.location.hash = ""; // to work on mobile??
+			window.location.hash = url;
 		}
-		$('html').css("scroll-behavior", "smooth");
+		$('html').css("scroll-behavior", "smooth"); // Not reliable to land on anchor link for initial loading.
 	})
 }
 
