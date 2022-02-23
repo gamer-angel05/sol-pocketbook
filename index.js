@@ -29,10 +29,10 @@ $(document).scroll(function(){
     var scroll = $(window).scrollTop();
     if(scroll < 300){
         $(".sticky-top")[0].classList.remove("active-sticky");
-        $("#js-top").css("display", "none");
+        $("#js-top a").css("display", "none");
     } else{
         $(".sticky-top")[0].classList.add("active-sticky");
-        $("#js-top").css("display", "");
+        $("#js-top a").css("display", "");
     }
 });
 
