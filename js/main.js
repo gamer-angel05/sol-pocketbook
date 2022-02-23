@@ -24,7 +24,7 @@ class formatData {
 
                     if (article.Article) {
                         href += "-" + article.Article.replace(/ /g, "-").toLowerCase();
-                        this.addDropDownMenu("--" + article.Article, href);
+                        this.addDropDownMenu("—" + article.Article, href);
                     };
                     article.Text = this.substituteTags(article.Text, tags);
                     this.addContent(article.Article, article.Text, href);
