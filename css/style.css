@@ -77,10 +77,10 @@ p, h2, h4 {
 }
 hr.divider {
   border-bottom: 1px solid #009f4d;
-  margin: 50px;
+  margin: 40px;
 }
 #scroll-content {
-	padding: 20px 10px 10px 10px;
+	padding: 30px 10px 20px;
 }
 #scroll-content a {
 	color: #bcdce9;
