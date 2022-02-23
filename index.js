@@ -10,15 +10,15 @@ function __init__() {
 	.then( response => response.json())
 	.then( data => {
 		new formatData(data);
+		if (url) {
+			location.hash = url;
+		}
 		anchors.options.visible = "touch";
 		anchors.add("#scroll-content h2, #scroll-content h4");
-		if (url) {
-			window.location.hash = url;
-		}
 	})
 }
 
-$(document).scroll(function(){
+$(window).scroll(function(){
 	/*	Sticky navigation change bg color on scroll,
 		display back to top button.
 	*/
