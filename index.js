@@ -5,7 +5,7 @@ function __init__() {
 		if there's an anchor hash, reload to force scroll
 		after content has been loaded.
 	*/
-	var url = window.location.hash;
+	var url = location.hash;
 	fetch(publicSpreadsheetDoc)
 	.then( response => response.json())
 	.then( data => {
@@ -18,7 +18,7 @@ function __init__() {
 	})
 }
 
-$(window).scroll(function(){
+$(document).scroll(function(){
 	/*	Sticky navigation change bg color on scroll,
 		display back to top button.
 	*/
