@@ -12,7 +12,7 @@ body {
 
 /* Header */
 header {
-	background-color:  rgba(16, 64, 13, 0.5);
+	background-color: rgba(16, 64, 13, 0.5);
 	color: #FFFFFF;
 }
 #img-logo {
@@ -24,6 +24,7 @@ header {
 
 /* Navbar */
 nav {
+	background-color: rgba(16, 64, 13, 0.5);
 	margin-bottom: 20px;
 }
 nav.active-sticky {
@@ -53,9 +54,6 @@ nav.active-sticky {
   margin-top: -100px;
   padding-top: 100px;
 }
-#scroll-container {
-	background-color:  rgba(7, 52, 4, 0.8);
-}
 
 /* Table content */
 .column-1 { 
@@ -80,7 +78,8 @@ hr.divider {
   margin: 40px;
 }
 #scroll-content {
-	padding: 30px 10px 20px;
+	padding: 40px 30px 20px;
+	background-color:  rgba(7, 52, 4, 0.8);
 }
 #scroll-content a {
 	color: #bcdce9;
