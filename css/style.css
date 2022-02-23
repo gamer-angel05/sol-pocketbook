@@ -2,12 +2,16 @@ html {
 	height:  100%;
 	scroll-behavior: smooth;
 }
-
 body {
 	background-color: rgba(16, 64, 13, 1);
 	height: 100%;
-	background: url("../css/bg-xsmall.png") no-repeat center fixed;
+}
+.bg-cover {
+	background: url("../css/bg-xsmall.png") no-repeat center;
 	background-size: cover !important;
+	position: fixed;
+	height: 100vh;
+  width: 100vw;
 }
 
 /* Header */
@@ -32,10 +36,10 @@ nav.active-sticky {
 	padding-bottom: 10px;
 }
 #button-section {
-	min-width: 300px;
+	min-width: 280px;
 }
 #scroll-dropmenu {
-	min-width: 300px;
+	min-width: 280px;
 	max-height: 200px;
   overflow-y: auto;
 }
@@ -45,8 +49,14 @@ nav.active-sticky {
 }
 
 /* Scrollable content */
+/* Allows bg-cover div to be fixed */
+.content { 
+	position: absolute;
+	width: 100%;
+}
 #main {
 	max-width: 800px;
+	margin: 0 auto; /* center non-container */
 }
 /* Allow buffer so we don't scroll anchor links behind navbar */
 .article-href {
@@ -101,8 +111,12 @@ hr.divider {
   table {
     font-size: 12px;
   }
-  table {
+  table th {
   	word-wrap:break-word;
+  }
+
+  #scroll-content {
+  	padding: 40px 10px 20px;
   }
 }
 .img-max {
