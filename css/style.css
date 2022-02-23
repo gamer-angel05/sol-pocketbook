@@ -78,7 +78,7 @@ hr.divider {
   margin: 40px;
 }
 #scroll-content {
-	padding: 40px 30px 20px;
+	padding: 40px 20px 20px;
 	background-color:  rgba(7, 52, 4, 0.8);
 }
 #scroll-content a {
@@ -87,7 +87,6 @@ hr.divider {
 #scroll-content a:hover {
 	color: #88ebb2;
 }
-
 /* AnchorJS */
 .anchorjs-link:hover {
   color: #2500ad;
@@ -98,7 +97,6 @@ hr.divider {
 .anchorjs-link {
 	text-decoration: none !important;
 }
-
 @media screen and (max-width: 600px) {
   table {
     font-size: 12px;
@@ -107,7 +105,6 @@ hr.divider {
   	word-wrap:break-word;
   }
 }
-
 .img-max {
 	max-width:50%; 
 	float:right; 
