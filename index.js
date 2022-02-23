@@ -18,7 +18,6 @@ function __init__() {
 				window.location.hash = "";
 				window.location.hash = hash;
 			}
-			$('html').css("scroll-behavior", "smooth"); // Not reliable to land on anchor link for initial loading.
 		}, 200);
 	})
 }
