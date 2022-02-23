@@ -9,11 +9,11 @@ class formatData {
         let topics = [...new Set(documentation.map(({Topic}) => Topic))];
 
         topics.forEach((topic, topic_index) => {
-            if (!topic) return
+            if (!topic) return;
 
-            let article_href = topic.replace(/ /g, "-").toLowerCase()
+            let article_href = topic.replace(/ /g, "-").toLowerCase();
             this.addDropDownMenu(topic, article_href);
-            $("#scroll-content").append('<h2 id="' + article_href + '">' + topic + '</h2>');
+            $('#scroll-content').append('<h2 id="' + article_href + '">' + topic + '</h2>');
 
             let articles = documentation.filter((e) => e.Topic === topic);
             articles.forEach((article, index) => {
@@ -29,8 +29,8 @@ class formatData {
                     article.Text = this.substituteTags(article.Text, tags);
                     this.addContent(article.Article, article.Text, href);
                 }
-            });
-            $("#scroll-content").append('<hr class="divider">');
+            })
+            $('#scroll-content').append('<hr class="divider">');
         });
     }
 
@@ -39,7 +39,7 @@ class formatData {
 
         if (matches && tags) {
             let result = "";
-            let label = matches[1].split(":", 2);
+            let label = matches[1].split(':', 2);
 
             switch (label[0]) {
                 case 'image':
@@ -56,13 +56,13 @@ class formatData {
     }
 
     getImage(url) {
-        if (!url) return ""
+        if (!url) return '';
 
         return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" class="img-max" /></a>';
     }
 
     getLink(url, title) {
-        if (!url) return title
+        if (!url) return title;
 
         if (url.startsWith('#')) {
             return '<a href="' + url + '">' + (title || url || "link") + '</a>';
@@ -72,12 +72,12 @@ class formatData {
 
     addDropDownMenu(title, index) {
         let link = '<a class="dropdown-item" href="#' + index + '">' + title + '</a>';
-        $("#scroll-dropmenu").append(link);
+        $('#scroll-dropmenu').append(link);
     }
 
     addContent(title, content, index) {
-        var s = title ? '<h4 id="' + index + '">' + title + '</h4>' : "";
-        s += '<p style="white-space: pre-wrap;">' + content + '</p>';
-        $("#scroll-content").append(s);
+        var string = title ? '<h4 id="' + index + '">' + title + '</h4>' : '';
+        string += '<p style="white-space: pre-wrap;">' + content + '</p>';
+        $('#scroll-content').append(string);
     }
 }

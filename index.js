@@ -22,7 +22,7 @@ function __init__() {
     })
 }
 
-$(document).scroll(function(){
+$(document).scroll(function() {
     /*  Sticky navigation change bg color on scroll,
         display back to top button.
     */
@@ -34,12 +34,11 @@ $(document).scroll(function(){
         $(".sticky-top")[0].classList.add("active-sticky");
         $(".js-top").css("display", "");
     }
-});
+})
 
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox();
-            });
-
+    event.preventDefault();
+    $(this).ekkoLightbox();
+})
 
 $(document).ready(__init__);
