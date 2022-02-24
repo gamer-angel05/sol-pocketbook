@@ -10,7 +10,7 @@ function __init__() {
     .then(data => {
         new formatData(data);
         anchors.options.visible = "touch";
-        anchors.add("#scroll-content h2, #scroll-content h4");
+        anchors.add("section h2, section h4");
         
         setTimeout(function() {
             if (window.location.hash) {
