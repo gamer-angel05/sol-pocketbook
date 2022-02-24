@@ -5,30 +5,32 @@ class formatData {
 
     addData(documentation) {
         /*  Add the data to drop menu and scroll
+            set the footer as well.
         */
-        let topics = [...new Set(documentation.map(({Topic}) => Topic))];
+        let topics = [...new Set(documentation.filter(({Topic}) => Topic && Topic !== 'Footer').map(({Topic}) => Topic))];
+        let footer = documentation.find(({Topic}) => Topic === 'Footer');
+
+        footer.Tags = footer.Tags ? footer.Tags.replace(/\n/g, "").split(",") : [];
+        footer.Text = this.substituteTags(footer.Text, footer.Tags);
+        $('footer').text(footer.Text);
 
         topics.forEach((topic, topic_index) => {
-            if (!topic) return;
-
             let article_href = topic.replace(/ /g, "-").toLowerCase();
+
             this.addDropDownMenu(topic, article_href);
             $('#scroll-content').append('<h2 id="' + article_href + '">' + topic + '</h2>');
 
-            documentation.filter((article) => article.Topic === topic)
+            documentation.filter((article) => article.Topic === topic && article.Text)
             .forEach((article, index) => {
-                let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
+                let href = article_href;
+                article.Tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
-                if (article.Text) {
-                    let href = article_href;
-
-                    if (article.Article) {
-                        href += "-" + article.Article.replace(/ /g, "-").toLowerCase();
-                        this.addDropDownMenu("—" + article.Article, href);
-                    }
-                    article.Text = this.substituteTags(article.Text, tags);
-                    this.addContent(article.Article, article.Text, href);
+                if (article.Article) {
+                    href += "-" + article.Article.replace(/ /g, "-").toLowerCase();
+                    this.addDropDownMenu("—" + article.Article, href);
                 }
+                article.Text = this.substituteTags(article.Text, article.Tags);
+                this.addContent(article.Article, article.Text, href);
             })
             $('#scroll-content').append('<hr class="divider">');
         })
