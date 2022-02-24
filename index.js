@@ -18,7 +18,7 @@ function __init__() {
                 window.location.hash = "";
                 window.location.hash = hash;
             }
-        }, 200);
+        }, 400)
     })
 }
 
@@ -27,10 +27,10 @@ $(document).scroll(function() {
         display back to top button.
     */
     var scroll = $(window).scrollTop();
-    if(scroll < 300){
+    if (scroll < 300) {
         $(".sticky-top")[0].classList.remove("active-sticky");
         $(".js-top").css("display", "none");
-    } else{
+    } else {
         $(".sticky-top")[0].classList.add("active-sticky");
         $(".js-top").css("display", "");
     }
