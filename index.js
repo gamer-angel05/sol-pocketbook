@@ -6,8 +6,8 @@ function __init__() {
         after content has been loaded.
     */
     fetch(publicSpreadsheetDoc)
-    .then( response => response.json())
-    .then( data => {
+    .then(response => response.json())
+    .then(data => {
         new formatData(data);
         anchors.options.visible = "touch";
         anchors.add("#scroll-content h2, #scroll-content h4");
@@ -26,7 +26,7 @@ $(document).scroll(function() {
     /*  Sticky navigation change bg color on scroll,
         display back to top button.
     */
-    var scroll = $(window).scrollTop();
+    let scroll = $(window).scrollTop();
     if (scroll < 300) {
         $(".sticky-top")[0].classList.remove("active-sticky");
         $(".js-top").css("display", "none");

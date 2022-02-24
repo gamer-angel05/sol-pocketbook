@@ -15,8 +15,8 @@ class formatData {
             this.addDropDownMenu(topic, article_href);
             $('#scroll-content').append('<h2 id="' + article_href + '">' + topic + '</h2>');
 
-            let articles = documentation.filter((e) => e.Topic === topic);
-            articles.forEach((article, index) => {
+            documentation.filter((article) => article.Topic === topic)
+            .forEach((article, index) => {
                 let tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
                 if (article.Text) {
@@ -25,20 +25,20 @@ class formatData {
                     if (article.Article) {
                         href += "-" + article.Article.replace(/ /g, "-").toLowerCase();
                         this.addDropDownMenu("—" + article.Article, href);
-                    };
+                    }
                     article.Text = this.substituteTags(article.Text, tags);
                     this.addContent(article.Article, article.Text, href);
                 }
             })
             $('#scroll-content').append('<hr class="divider">');
-        });
+        })
     }
 
     substituteTags(text, tags) {
         let matches = text.match(/\[(.*?)\]/);
 
         if (matches && tags) {
-            let result = "";
+            let result = '';
             let label = matches[1].split(':', 2);
 
             switch (label[0]) {
@@ -52,7 +52,7 @@ class formatData {
             text = text.replace(/\[(.*?)\]/, result);
             return this.substituteTags(text, tags);
         }
-        return text
+        return text;
     }
 
     getImage(url) {
