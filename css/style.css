@@ -2,7 +2,6 @@ html {
     height:  100%;
     scroll-behavior: smooth;
     scroll-padding-top: 100px; /* Allow buffer so we don't scroll anchor links behind navbar */
-    overflow-y: scroll;
 }
 body {
     background-color: rgba(16, 64, 13, 1);
@@ -13,7 +12,7 @@ body {
     background-size: cover !important;
     position: fixed;
     height: 100vh;
-    width: 99.5vw; /* Adjust for perma-scrollbar */
+    width: 100vw;
 }
 .bg-color {
     background-color: rgba(16, 64, 13, 0.5);
@@ -83,29 +82,29 @@ p, h2, h4 {
     text-align:right; 
 }
 
-section {
+#scroll-content {
     padding: 40px 20px 20px;
     background-color:  rgba(7, 52, 4, 0.6);
 }
-section a {
+#scroll-content a {
     color: #bcdce9;
 }
-section a:hover {
+#scroll-content a:hover {
     color: #88ebb2;
 }
-section hr.divider {
+#scroll-content hr.divider {
     border-bottom: 1px solid #009f4d;
     margin: 40px;
 }
 
-/* section: Lightbox */
+/* scroll-content: Lightbox */
 .img-max {
     max-width:50%; 
     float:right; 
     margin-left:20px;
 }
 
-/* section: AnchorJS */
+/* scroll-content: AnchorJS */
 .anchorjs-link:hover {
     color: #2500ad;
 }
@@ -121,7 +120,7 @@ section hr.divider {
         width:100%;
         padding: 0;
     }
-    section {
+    #scroll-content {
         padding: 40px 10px 20px;
     }
     table {

@@ -18,7 +18,7 @@ class formatData {
             let article_href = topic.replace(/ /g, "-").toLowerCase();
 
             this.addDropDownMenu(topic, article_href);
-            $('section').append('<h2 id="' + article_href + '">' + topic + '</h2>');
+            $('#scroll-content').append('<h2 id="' + article_href + '">' + topic + '</h2>');
 
             documentation.filter((article) => article.Topic === topic && article.Text)
             .forEach((article, index) => {
@@ -32,7 +32,7 @@ class formatData {
                 article.Text = this.substituteTags(article.Text, article.Tags);
                 this.addContent(article.Article, article.Text, href);
             })
-            $('section').append('<hr class="divider">');
+            $('#scroll-content').append('<hr class="divider">');
         })
     }
 
@@ -80,6 +80,6 @@ class formatData {
     addContent(title, content, index) {
         var string = title ? '<h4 id="' + index + '">' + title + '</h4>' : '';
         string += '<p style="white-space: pre-wrap;">' + content + '</p>';
-        $('section').append(string);
+        $('#scroll-content').append(string);
     }
 }
