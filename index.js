@@ -6,21 +6,40 @@ function __init__() {
         if there's an anchor hash, reload to force scroll
         after content has been loaded.
     */
+    $('[data-toggle="tooltip"]').tooltip({trigger : 'hover'});
     fetch(publicSpreadsheetDoc)
     .then(response => response.json())
     .then(data => {
         new formatData(data);
-        anchors.options.visible = "touch";
-        anchors.add("#scroll-content h2, #scroll-content h4");
+        anchors.options.visible = 'touch';
+        anchors.add('#scroll-content h2, #scroll-content h4');
         
         setTimeout(function() {
             if (window.location.hash) {
                 const hash = window.location.hash;
-                window.location.hash = "";
+                window.location.hash = '';
                 window.location.hash = hash;
             }
         }, 400)
+
+        const anchorsAll = document.querySelectorAll('.anchorjs-link');
+        anchorsAll.forEach(anchor => {
+            anchor.addEventListener('click', handleAnchorClick);
+            anchor.setAttribute('data-toggle', 'tooltip');
+            anchor.setAttribute('data-placement', 'bottom');
+            anchor.setAttribute('data-html', 'true');
+        })
     })
+}
+
+function handleAnchorClick() {
+    copyToClipboard(this.href);
+    $(this).attr('data-original-title', 'Copied!').tooltip('show');
+
+    setTimeout(() => {
+        $(this).tooltip('hide');
+        $(this).on('hidden.bs.tooltip', () => { $(this).tooltip('dispose'); })
+    }, 1000)
 }
 
 $(document).scroll(function() {
@@ -28,14 +47,16 @@ $(document).scroll(function() {
         display back to top button.
     */
     let scroll = $(window).scrollTop();
+    
     if (scroll < 300) {
         isSticky = false;
-        $(".sticky-top")[0].classList.remove("active-sticky");
-        $(".js-top").css("display", "none");
+        $('.sticky-top')[0].classList.remove('active-sticky');
+        $('.js-top').css('display', 'none');
+
     } else if (!isSticky) {
         isSticky = true;
-        $(".sticky-top")[0].classList.add("active-sticky");
-        $(".js-top").css("display", "");
+        $('.sticky-top')[0].classList.add('active-sticky');
+        $('.js-top').css('display', '');
     }
 })
 
