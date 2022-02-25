@@ -1,4 +1,5 @@
 const publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNgGF22d_yAxqKOAM6RI/FoE%20Tips"; // opensource redirect for google sheet w/o auth
+let isSticky = false;
 
 function __init__() {
     /*  Load the public sheet data, add anchorJS and
@@ -28,9 +29,11 @@ $(document).scroll(function() {
     */
     let scroll = $(window).scrollTop();
     if (scroll < 300) {
+        isSticky = false;
         $(".sticky-top")[0].classList.remove("active-sticky");
         $(".js-top").css("display", "none");
-    } else {
+    } else if (!isSticky) {
+        isSticky = true;
         $(".sticky-top")[0].classList.add("active-sticky");
         $(".js-top").css("display", "");
     }
