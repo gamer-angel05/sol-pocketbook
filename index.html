@@ -31,38 +31,40 @@
         <div class="bg-color"></div>
     </div>
     <div class="content">
-        <div id="main" class="container">
-            <header class="text-center">
-                <div>
+        <header class="main container text-center">
+            <div class="row">
+                <div class="col">
                     <a id="top"></a>
                     <img id="img-crest" src="./css/logo.png" alt="Crest" />
                 </div>
-                <div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <img id="img-logo" src="./css/swords-of-light.png" alt="Swords of Light" />
                     <h2>Pocketbook</h2>
                 </div>
-            </header>
+            </div>
+        </header>
 
-            <nav class="container-fluid sticky-top justify-content-center" role="navigation">
-                <div class="row align-items-center">
-                    <div class="col-md col-0 js-top" style="display: none;"></div>
-                    <div class="col-md col text-center">
-                        <div class="dropdown">
-                            <button class="btn btn-lg btn-light dropdown-toggle" type="button" id="button-section" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select section</button>
-                            <div id="scroll-dropmenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
-                        </div>
-                    </div>
-                    <div id="js-top" class="col-md col text-right js-top" style="display: none;">
-                        <a href="#top" class="bi-arrow-up-circle" role="button"></a>
+        <nav class="main container sticky-top justify-content-center" role="navigation">
+            <div class="row align-items-center">
+                <div class="col-md col-0 js-top" style="display: none;"></div>
+                <div class="col-md col text-center">
+                    <div class="dropdown">
+                        <button class="btn btn-lg btn-light dropdown-toggle" type="button" id="button-section" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select section</button>
+                        <div id="scroll-dropmenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
                     </div>
                 </div>
-            </nav>
-            <div id="scroll-content" data-offset="0"></div>
+                <div id="js-top" class="col-md col text-right js-top" style="display: none;">
+                    <a href="#top" class="bi-arrow-up-circle" role="button"></a>
+                </div>
+            </div>
+        </nav>
+        <section class="main container" id="scroll-content" data-offset="0"></section>
 
-            <footer class="fixed-bottom text-center">
-                Reach out to Swords of Light on Parkog.
-            </footer>
-        </div>
+        <footer class="main container fixed-bottom text-center">
+            Reach out to Swords of Light on Parkog.
+        </footer>
     </div>
 
     <script type="text/javascript" src="js/formatData.js"></script>

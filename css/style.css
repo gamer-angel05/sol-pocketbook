@@ -25,7 +25,10 @@ body {
     position: absolute;
     width: 100%;
 }
-#main {
+section {
+    background-color: rgba(7, 52, 4, 0.6);
+}
+.main {
     max-width: 800px;
 }
 
@@ -85,7 +88,6 @@ p, h2, h4 {
 
 #scroll-content {
     padding: 40px 20px 20px;
-    background-color:  rgba(7, 52, 4, 0.6);
 }
 #scroll-content a {
     color: #bcdce9;
@@ -117,10 +119,6 @@ p, h2, h4 {
 }
 
 @media screen and (max-width: 600px) {
-    .container {
-        width:100%;
-        padding: 0;
-    }
     #scroll-content {
         padding: 40px 10px 20px;
     }
