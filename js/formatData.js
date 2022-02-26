@@ -60,16 +60,18 @@ class formatData {
     getImage(url) {
         if (!url) return '';
 
-        return '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" class="img-max" /></a>';
+        return '<a href="' + url + '" data-toggle="lightbox"><img title="help-image" src="' + url + '" class="img-max" /></a>';
     }
 
     getLink(url, title) {
+        title = title || url || "link"
+        
         if (!url) return title;
 
         if (url.startsWith('#')) {
-            return '<a href="' + url + '">' + (title || url || "link") + '</a>';
+            return '<a title="' + title + '" href="' + url + '">' + title + '</a>';
         }
-        return '<a target="_blank" href="' + url + '">' + (title || url || "link") + '</a>';
+        return '<a title="' + title + '" target="_blank" href="' + url + '">' + title + '</a>';
     }
 
     addDropDownMenu(title, index) {
