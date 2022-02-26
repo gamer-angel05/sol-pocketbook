@@ -61,6 +61,9 @@ nav.active-sticky {
     max-height: 200px;
     overflow-y: auto;
 }
+.js-top {
+    display: none;
+}
 #js-top a {
     color: #FFFFFF;
     font-size: 30px;

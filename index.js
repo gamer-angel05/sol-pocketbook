@@ -56,7 +56,7 @@ $(document).scroll(function() {
     } else if (!isSticky) {
         isSticky = true;
         $('.sticky-top')[0].classList.add('active-sticky');
-        $('.js-top').css('display', '');
+        $('.js-top').css('display', 'block');
     }
 })
 
