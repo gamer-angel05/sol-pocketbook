@@ -6,7 +6,6 @@ function __init__() {
         if there's an anchor hash, reload to force scroll
         after content has been loaded.
     */
-    $('[data-toggle="tooltip"]').tooltip({trigger : 'hover'});
     fetch(publicSpreadsheetDoc)
     .then(response => response.json())
     .then(data => {
@@ -29,18 +28,21 @@ function __init__() {
             anchor.setAttribute('data-placement', 'bottom');
             anchor.setAttribute('data-html', 'true');
         })
+        $('[data-toggle="tooltip"]').tooltip({trigger : 'hover'});
     })
 }
 
 function handleAnchorClick() {
     copyToClipboard(this.href);
     $(this).attr('data-original-title', 'Copied!').tooltip('show');
-
-    setTimeout(() => {
-        $(this).tooltip('hide');
-        $(this).on('hidden.bs.tooltip', () => { $(this).tooltip('dispose'); })
-    }, 1000)
+    $(this).on('hidden.bs.tooltip', () => $(this).tooltip('dispose'));
 }
+
+$(document).on('show.bs.tooltip', function (e) {
+    setTimeout(function() {   //calls click event after a certain time
+        $('[data-toggle="tooltip"]').tooltip('hide');
+    }, 4000)
+})
 
 $(document).scroll(function() {
     /*  Sticky navigation change bg color on scroll,
