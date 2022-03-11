@@ -5,24 +5,27 @@ class formatData {
 
     addData(documentation) {
         /*  Add the data to drop menu and scroll
-            set the footer as well.
+            set the footer as well and latest articles.
         */
-        let topics = [...new Set(documentation.filter(({Topic}) => Topic && Topic !== 'Footer').map(({Topic}) => Topic))];
         let footer = documentation.find(({Topic}) => Topic === 'Footer');
-
         footer.Tags = footer.Tags ? footer.Tags.replace(/\n/g, "").split(",") : [];
         footer.Text = this.substituteTags(footer.Text, footer.Tags);
         $('footer').text(footer.Text);
 
+        documentation = documentation.filter(({Topic}) => Topic && Topic !== 'Footer');
+
+        $('#scroll-content').append('<hr class="divider">');
+        let topics = [...new Set(documentation.map(({Topic}) => Topic))];
         topics.forEach((topic, topic_index) => {
-            let article_href = topic.replace(/ /g, "-").toLowerCase();
+            let articleHref = topic.replace(/ /g, "-").toLowerCase();
 
-            this.addDropDownMenu(topic, article_href);
-            $('#scroll-content').append('<h2 id="' + article_href + '">' + topic + '</h2>');
+            this.addDropDownMenu(topic, articleHref);
+            $('#scroll-content').append('<h2 id="' + articleHref + '">' + topic + '</h2>');
 
-            documentation.filter((article) => article.Topic === topic && article.Text)
+            documentation
+            .filter((article) => article.Topic === topic && article.Text)
             .forEach((article, index) => {
-                let href = article_href;
+                let href = articleHref;
                 article.Tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
 
                 if (article.Article) {
@@ -31,8 +34,30 @@ class formatData {
                 }
                 article.Text = this.substituteTags(article.Text, article.Tags);
                 this.addContent(article.Article, article.Text, href);
+
+                // update documentation with href
+                article.Href = href;
             })
             $('#scroll-content').append('<hr class="divider">');
+        })
+
+        // Latest articles section
+        const latestArticles = $('#latest-articles');
+        latestArticles.append('<h2>Last Updated</h2>');
+        documentation
+        .sort((a, b) => {
+            const parsedA = Date.parse(a.Timestamp);
+            const parsedB = Date.parse(b.Timestamp);
+
+            if (parsedA > parsedB) return -1;
+            if (parsedA < parsedB) return 1;
+            
+            return 0;
+        })
+        .slice(0, 5)
+        .forEach((article) => {
+            latestArticles.append('<a href="#' + article.Href + '">' + (article.Article || article.Topic) + '</a>');
+            latestArticles.append('<br>')
         })
     }
 
