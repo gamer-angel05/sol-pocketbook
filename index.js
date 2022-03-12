@@ -12,7 +12,16 @@ function __init__() {
         new formatData(data);
         anchors.options.visible = 'touch';
         anchors.add('#scroll-content h2, #scroll-content h4');
+
+        const anchorsAll = document.querySelectorAll('.anchorjs-link');
+        anchorsAll.forEach(anchor => {
+            anchor.addEventListener('click', handleAnchorClick);
+            anchor.setAttribute('data-toggle', 'tooltip');
+            anchor.setAttribute('data-placement', 'bottom');
+        })
         
+        $('[data-toggle="tooltip"]').tooltip({trigger : 'hover'});
+
         setTimeout(function() {
             if (window.location.hash) {
                 const hash = window.location.hash;
@@ -20,15 +29,6 @@ function __init__() {
                 window.location.hash = hash;
             }
         }, 400)
-
-        const anchorsAll = document.querySelectorAll('.anchorjs-link');
-        anchorsAll.forEach(anchor => {
-            anchor.addEventListener('click', handleAnchorClick);
-            anchor.setAttribute('data-toggle', 'tooltip');
-            anchor.setAttribute('data-placement', 'bottom');
-            anchor.setAttribute('data-html', 'true');
-        })
-        $('[data-toggle="tooltip"]').tooltip({trigger : 'hover'});
     })
 }
 
@@ -37,12 +37,6 @@ function handleAnchorClick() {
     $(this).attr('data-original-title', 'Copied!').tooltip('show');
     $(this).on('hidden.bs.tooltip', () => $(this).tooltip('dispose'));
 }
-
-$(document).on('show.bs.tooltip', function (e) {
-    setTimeout(function() {   //calls click event after a certain time
-        $('[data-toggle="tooltip"]').tooltip('hide');
-    }, 4000)
-})
 
 $(document).scroll(function() {
     /*  Sticky navigation change bg color on scroll,
@@ -60,6 +54,12 @@ $(document).scroll(function() {
         $('.sticky-top')[0].classList.add('active-sticky');
         $('.js-top').css('display', 'block');
     }
+})
+
+$(document).on('show.bs.tooltip', function (event) {
+    setTimeout(function() {   //calls click event after a certain time
+        $('[data-toggle="tooltip"]').tooltip('hide');
+    }, 4000)
 })
 
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {

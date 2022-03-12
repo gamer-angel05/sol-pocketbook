@@ -13,8 +13,8 @@ class formatData {
         $('footer').text(footer.Text);
 
         documentation = documentation.filter(({Topic}) => Topic && Topic !== 'Footer');
-
         $('#scroll-content').append('<hr class="divider">');
+
         let topics = [...new Set(documentation.map(({Topic}) => Topic))];
         topics.forEach((topic, topic_index) => {
             let articleHref = topic.replace(/ /g, "-").toLowerCase();
@@ -22,8 +22,7 @@ class formatData {
             this.addDropDownMenu(topic, articleHref);
             $('#scroll-content').append('<h2 id="' + articleHref + '">' + topic + '</h2>');
 
-            documentation
-            .filter((article) => article.Topic === topic && article.Text)
+            documentation.filter((article) => article.Topic === topic && article.Text)
             .forEach((article, index) => {
                 let href = articleHref;
                 article.Tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
@@ -44,8 +43,7 @@ class formatData {
         // Latest articles section
         const latestArticles = $('#latest-articles');
         latestArticles.append('<h2>Last Updated</h2>');
-        documentation
-        .sort((a, b) => {
+        documentation.sort((a, b) => {
             const parsedA = Date.parse(a.Timestamp);
             const parsedB = Date.parse(b.Timestamp);
 
@@ -56,8 +54,7 @@ class formatData {
         })
         .slice(0, 5)
         .forEach((article) => {
-            latestArticles.append('<a href="#' + article.Href + '">' + (article.Article || article.Topic) + '</a>');
-            latestArticles.append('<br>')
+            latestArticles.append('<a href="#' + article.Href + '">' + (article.Article || article.Topic) + '</a><br>');
         })
     }
 
@@ -89,7 +86,7 @@ class formatData {
     }
 
     getLink(url, title) {
-        title = title || url || "link"
+        title = title || url || "link";
         
         if (!url) return title;
 
