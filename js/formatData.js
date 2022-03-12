@@ -54,7 +54,7 @@ class formatData {
         })
         .slice(0, 5)
         .forEach((article) => {
-            latestArticles.append('<a href="#' + article.Href + '">' + (article.Article || article.Topic) + '</a><br>');
+            latestArticles.append('<a href="#' + article.Href + '">' + article.Topic + (article.Article ? ' - ' + article.Article : '') + '</a><br>');
         })
     }
 
