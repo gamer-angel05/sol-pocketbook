@@ -67,7 +67,7 @@ class formatData {
 
             switch (label[0]) {
                 case 'image':
-                    result = this.getImage(tags.shift());
+                    result = this.getImage(tags.shift(), label[1]);
                     break;
                 case 'link':
                     result = this.getLink(tags.shift(), label[1]);
@@ -79,10 +79,17 @@ class formatData {
         return text;
     }
 
-    getImage(url) {
-        if (!url) return '';
+    getImage(url, caption) {
+        let image = '';
 
-        return '<a href="' + url + '" data-toggle="lightbox"><img title="help-image" src="' + url + '" class="img-max" /></a>';
+        if (!url) return image;
+
+        if (caption) { // since figure can't exist within text, close and open paragraph around the figure
+            image = '</p><figure class="figure"><a href="' + url + '" data-toggle="lightbox"><img title="help-image" src="' + url + '" class="figure-img img-fluid"></a><figcaption class="figure-caption text-center">' + caption + '</figcaption></figure><p>';
+        } else {
+            image = '<a href="' + url + '" data-toggle="lightbox"><img title="help-image" src="' + url + '" class="img-max" ></a>';
+        }
+        return image;
     }
 
     getLink(url, title) {

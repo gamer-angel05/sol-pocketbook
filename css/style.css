@@ -104,10 +104,13 @@ p, h2, h4 {
 }
 
 /* scroll-content: Lightbox */
-.img-max {
+figure, .img-max {
     max-width:50%; 
     float:right; 
     margin-left:20px;
+}
+figcaption {
+    color: #d7f0cc !important;
 }
 
 /* scroll-content: AnchorJS */
