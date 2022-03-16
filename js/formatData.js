@@ -85,9 +85,9 @@ class formatData {
         if (!url) return image;
 
         if (caption) { // since figure can't exist within text, close and open paragraph around the figure
-            image = '</p><figure class="figure"><a href="' + url + '" data-toggle="lightbox"><img title="help-image" src="' + url + '" class="figure-img img-fluid"></a><figcaption class="figure-caption text-center">' + caption + '</figcaption></figure><p>';
+            image = '</p><figure class="figure"><a href="' + url + '" data-toggle="lightbox" data-max-width="800" data-footer="' + caption + '"><img title="help-image" src="' + url + '" class="figure-img img-fluid"></a><figcaption class="figure-caption text-center">' + caption + '</figcaption></figure><p style="white-space: pre-wrap;">';
         } else {
-            image = '<a href="' + url + '" data-toggle="lightbox"><img title="help-image" src="' + url + '" class="img-max" ></a>';
+            image = '<a href="' + url + '" data-toggle="lightbox" data-max-width="800"><img title="help-image" src="' + url + '" class="img-max img-fluid" ></a>';
         }
         return image;
     }
