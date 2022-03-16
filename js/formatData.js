@@ -72,9 +72,6 @@ class formatData {
                 case 'link':
                     result = this.getLink(tags.shift(), label[1]);
                     break;
-                case 'checkbox':
-                    result = this.getCheckbox(label[1]);
-                    break;
             }
             text = text.replace(/\[(.*?)\]/, result);
             return this.substituteTags(text, tags);
@@ -97,12 +94,6 @@ class formatData {
             return '<a title="' + title + '" href="' + url + '">' + title + '</a>';
         }
         return '<a title="' + title + '" target="_blank" href="' + url + '">' + title + '</a>';
-    }
-
-    getCheckbox(text) {
-        if (!text) return '';
-
-        return '<label><input type="checkbox">' + text + '</label>'
     }
 
     addDropDownMenu(title, index) {
