@@ -45,10 +45,11 @@ header {
 nav {
     background-color: rgba(16, 64, 13, 0.5);
     margin-bottom: 20px;
+    padding-bottom: 10px;
 }
 nav.active-sticky {
     background-color: rgba(7, 52, 4, 0.8);
-    padding-bottom: 10px;
+    /*padding-bottom: 10px; buggy with anchor scrolling*/
 }
 #button-section {
     min-width: 280px;

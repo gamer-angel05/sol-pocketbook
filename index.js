@@ -28,7 +28,7 @@ function __init__() {
                 window.location.hash = '';
                 window.location.hash = hash;
             }
-        }, 400)
+        }, 500)
     })
 }
 
