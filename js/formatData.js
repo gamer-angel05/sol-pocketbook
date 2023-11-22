@@ -110,7 +110,21 @@ class formatData {
 
     addContent(title, content, index) {
         var string = title ? '<h4 id="' + index + '">' + title + '</h4>' : '';
-        string += '<p style="white-space: pre-wrap;">' + content + '</p>';
+
+        if (content.includes('<ul>') || content.includes('<ol>')) {
+            // hackaround to get the split I want...if there's multiple bullet lists... can't be contained in <p>
+            var content_ulol = content;
+            content_ulol.replace('<ul>', '<split><ul>')
+            .replace('</ul>', '</ul><split>')
+            .replace('<ol>', '<split><ol>')
+            .replace('</ol>', '</ol><split>')
+            .split('<split>')
+            .forEach((chunk) => {
+                string += chunk.startsWith('<ul>') || chunk.startsWith('<ol>') ? chunk : '<p style="white-space: pre-wrap;">' + chunk + '</p>';
+            })
+        } else {
+            string += '<p style="white-space: pre-wrap;">' + content + '</p>';
+        }
         $('#scroll-content').append(string);
     }
 }
