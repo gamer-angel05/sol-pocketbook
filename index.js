@@ -1,70 +1,95 @@
+//const publicSpreadsheetDoc = "https://script.google.com/macros/s/AKfycbxqQ0yYwkq8O7i39qGEfCvoltohnI2zNJQVow1Eq9U91PvG64aQDNiWj-MKaZorc5I/exec?req=pocketbook" // a bit slow, but works.
 const publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNgGF22d_yAxqKOAM6RI/FoE%20Tips"; // opensource redirect for google sheet w/o auth
 let isSticky = false;
 
-function __init__() {
-    /*  Load the public sheet data, add anchorJS and
-        if there's an anchor hash, reload to force scroll
-        after content has been loaded.
-    */
+/**
+ * Load the public sheet data, add anchorJS and
+ * if there's an anchor hash, reload to force scroll
+ * after content has been loaded.
+ */
+$(function() 
+{
     fetch(publicSpreadsheetDoc)
     .then(response => response.json())
     .then(data => {
+        // Format the sheet data
         new formatData(data);
-        anchors.options.visible = 'touch';
-        anchors.add('#scroll-content h2, #scroll-content h4');
 
-        const anchorsAll = document.querySelectorAll('.anchorjs-link');
-        anchorsAll.forEach(anchor => {
-            anchor.addEventListener('click', handleAnchorClick);
-            anchor.setAttribute('data-toggle', 'tooltip');
-            anchor.setAttribute('data-placement', 'bottom');
-        })
-        
-        $('[data-toggle="tooltip"]').tooltip({trigger : 'hover'});
-
+        // Force reload the hash if there's one, after the content is loaded.
         setTimeout(function() {
             if (window.location.hash) {
                 const hash = window.location.hash;
-                window.location.hash = '';
+                window.location.hash = "";
                 window.location.hash = hash;
             }
-        }, 500)
+        }, 500);
+
+        // Setup anchor links on h2, h4
+        anchors.options.visible = "touch";
+        anchors.add("#content h2, #content h4");
+        $(".anchorjs-link").each(function() {
+            const el = $(this);
+            el.on("click", handleAnchorClick);
+            el.attr("data-bs-toggle", "tooltip");
+            el.attr("data-bs-placement", "right");
+            el.addClass("text-decoration-none");
+        })
+        $(`[data-bs-toggle="tooltip"]`).tooltip({trigger : "manual"});
+
+        // Plug in image lightbox
+        $(`a[data-toggle="lightbox"]`).each(function() {
+            const el = $(this);
+            el.on("click", function(event) {
+                event.preventDefault();
+                const lightbox = new Lightbox(el.get(0));
+                lightbox.show();
+            })
+        })
+
+        // Hide loading indicator
+        $("#content > div:first-child").addClass("d-none");
     })
-}
+})
 
-function handleAnchorClick() {
-    copyToClipboard(this.href);
-    $(this).attr('data-original-title', 'Copied!').tooltip('show');
-    $(this).on('hidden.bs.tooltip', () => $(this).tooltip('dispose'));
-}
-
-$(document).scroll(function() {
-    /*  Sticky navigation change bg color on scroll,
-        display back to top button.
-    */
-    let scroll = $(window).scrollTop();
-    
-    if (scroll < 300) {
+/**
+ * Sticky navigation change bg color on scroll,
+ * display back to top button.
+ */
+$(document).on("scroll", function()
+{
+    if ($(this).scrollTop() < 300) {
         isSticky = false;
-        $('.sticky-top')[0].classList.remove('active-sticky');
-        $('.js-top').css('display', 'none');
-
-    } else if (!isSticky) {
+        $(".sticky-top").removeClass("sticky");
+    } 
+    else if (!isSticky) {
         isSticky = true;
-        $('.sticky-top')[0].classList.add('active-sticky');
-        $('.js-top').css('display', 'block');
+        $(".sticky-top").addClass("sticky");
     }
 })
 
-$(document).on('show.bs.tooltip', function (event) {
-    setTimeout(function() {   //calls click event after a certain time
-        $('[data-toggle="tooltip"]').tooltip('hide');
-    }, 4000)
+/**
+ * Show bs tooltip event. 
+ * Hide it after time has passed.
+ */
+$(document).on("show.bs.tooltip", function ()
+{
+    setTimeout(function() {
+        $(`[data-bs-toggle="tooltip"]`).tooltip("hide");
+    }, 1500);
 })
 
-$(document).on('click', '[data-toggle="lightbox"]', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
-})
-
-$(document).ready(__init__);
+/**
+ * Copy the href to the clipboard and
+ * display a tooltip as feedback.
+ */
+function handleAnchorClick()
+{
+    navigator.clipboard.writeText(this.href);
+    
+    // Set copied tooltip
+    const el = $(this);
+    el.on("hidden.bs.tooltip", () => el.tooltip("dispose"));
+    // Update tooltip value and display it.
+    el.attr("data-bs-original-title", "Copied!");
+    el.tooltip("show");
+}

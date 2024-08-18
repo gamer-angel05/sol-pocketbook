@@ -1,12 +1,20 @@
-function copyToClipboard(text) {
-    var dummy = document.createElement("textarea");
-    // to avoid breaking orgain page when copying more words
-    // cant copy when adding below this code
-    // dummy.style.display = 'none'
-    document.body.appendChild(dummy);
-    //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
-    dummy.value = text;
-    dummy.select();
-    document.execCommand("copy");
-    document.body.removeChild(dummy);
+/**
+ * Convert the given string of tags with values separated by a comma to 
+ * be converted into an array.
+ * @param {string} tagsStr the string values separated by comma
+ * @returns array of tags
+ */
+function convertTagsToArray(strTags)
+{
+    return (strTags) ? strTags.replace(/\n/g, "").split(",") : [];
+}
+
+/**
+ * Convert the given string spaces to hyphen.
+ * @param {string} str the given string
+ * @returns the update string
+ */
+function convertSpaceToHyphen(str)
+{
+    return str.replace(/ /g, "-");
 }

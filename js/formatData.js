@@ -1,130 +1,212 @@
-class formatData {
-    constructor(documentation) {
+/**
+ * Format the sheet data for web presentation.
+ */
+class formatData
+{
+    constructor(documentation)
+    {
         this.addData(documentation);
     }
 
-    addData(documentation) {
-        /*  Add the data to drop menu and scroll
-            set the footer as well and latest articles.
-        */
-        let footer = documentation.find(({Topic}) => Topic === 'Footer');
-        footer.Tags = footer.Tags ? footer.Tags.replace(/\n/g, "").split(",") : [];
-        footer.Text = this.substituteTags(footer.Text, footer.Tags);
-        $('footer').text(footer.Text);
+    /**
+     * Add the data to drop menu and scroll.
+     * Set the footer as well and latest articles.
+     * @param {object} documentation 
+     */
+    addData(documentation) 
+    {
+        // Process the footer
+        const article = documentation.find(({Topic}) => Topic === "Footer");
+        this.setFooter(article);
 
-        documentation = documentation.filter(({Topic}) => Topic && Topic !== 'Footer');
-        $('#scroll-content').append('<hr class="divider">');
+        // Get unique topics, create the articles and ignore footer
+        const topics = [...new Set(documentation.map(({Topic}) => Topic))];
+        topics.splice(topics.indexOf("Footer"), 1);
+        topics.forEach((topic) => {
 
-        let topics = [...new Set(documentation.map(({Topic}) => Topic))];
-        topics.forEach((topic, topic_index) => {
-            let articleHref = topic.replace(/ /g, "-").toLowerCase();
-
+            // Add dropdown topic entry
+            let articleHref = convertSpaceToHyphen(topic).toLowerCase();
             this.addDropDownMenu(topic, articleHref);
-            $('#scroll-content').append('<h2 id="' + articleHref + '">' + topic + '</h2>');
 
-            documentation.filter((article) => article.Topic === topic && article.Text)
-            .forEach((article, index) => {
-                let href = articleHref;
-                article.Tags = article.Tags ? article.Tags.replace(/\n/g, "").split(",") : [];
-
-                if (article.Article) {
-                    href += "-" + article.Article.replace(/ /g, "-").toLowerCase();
-                    this.addDropDownMenu("—" + article.Article, href);
-                }
-                article.Text = this.substituteTags(article.Text, article.Tags);
-                this.addContent(article.Article, article.Text, href);
-
-                // update documentation with href
-                article.Href = href;
-            })
-            $('#scroll-content').append('<hr class="divider">');
+            // Add topic titles and their related articles
+            $('#content').append(`<h2 id="${articleHref}">${topic}</h2>`);
+            documentation.filter((article) => article.Topic === topic && article.Text).forEach((article) => {this.setArticle(article, articleHref)})
+            $("#content").append("<hr>");
         })
 
-        // Latest articles section
-        const latestArticles = $('#latest-articles');
-        latestArticles.append('<h2>Last Updated</h2>');
+        this.setLatestArticles(documentation);
+    }
+
+    /**
+     * Add the topic or article entry to the section dropdown.
+     * @param {string} title the title entry
+     * @param {string} href the topic or article href
+     */
+    addDropDownMenu(title, href)
+    {
+        $("#scroll-dropmenu").append(`<li><a class="dropdown-item" href="#${href}">${title}</a></li>`);
+    }
+    /**
+     * Set the latest articles section
+     * @param {object} documentation 
+     */
+    setLatestArticles(documentation)
+    {
+        const container = $("#latest-articles");
+        container.append("<h2>Last Updates</h2>");
+        
+        // Sort the articles by timestamp and grab the last 5.
         documentation.sort((a, b) => {
             const parsedA = Date.parse(a.Timestamp);
             const parsedB = Date.parse(b.Timestamp);
 
             if (parsedA > parsedB) return -1;
-            if (parsedA < parsedB) return 1;
-            
-            return 0;
+            else if (parsedA < parsedB) return 1;
+            else return 0;
         })
         .slice(0, 5)
         .forEach((article) => {
-            latestArticles.append('<a href="#' + article.Href + '">' + article.Topic + (article.Article ? ' - ' + article.Article : '') + '</a><br>');
+            container.append(`<a href="#${article.Href}">${article.Topic}${(article.Article) ? ": " + article.Article : ""}</a><br>`);
+        })
+    }
+    /**
+     * Set the footer text.
+     * @param {object} article the given article object
+     */
+    setFooter(article)
+    {
+        article.Tags = convertTagsToArray(article.Tags);
+        article.Text = this.replaceTags(article.Text, article.Tags);
+        $("footer > div:first-child").text(article.Text);
+    }
+    /**
+     * Set the article, convert tags and content to display.
+     * @param {object} article the given article object
+     * @param {string} href the topic article href
+     */
+    setArticle(article, href)
+    {
+        article.Tags = convertTagsToArray(article.Tags);
+
+        // Add dropdown article entry
+        if (article.Article) {
+            href += "-" + convertSpaceToHyphen(article.Article).toLowerCase();
+            this.addDropDownMenu("—" + article.Article, href);
+        }
+
+        article.Text = this.replaceTags(article.Text, article.Tags);
+        this.addContent(article.Article, article.Text, href);
+
+        // Update documentation article with new href
+        article.Href = href;
+    }
+
+    /**
+     * Replace the tags in the given text with the tag values.
+     * @param {string} text the text containing the tags
+     * @param {array} tags the array of values for the tags
+     * @returns the text with the tags replaced by their values
+     */
+    replaceTags(text, tags)
+    {
+        function getImage(url, caption) 
+        {
+            if (typeof(url) === "string") {
+                return `<a href="${url}" data-toggle="lightbox" data-caption="${caption || ""}"><img src="${url}" class="img-max img-fluid"></a>`;
+            } 
+            else {
+                return "";
+            }
+        }
+        function getLink(url, title) 
+        {
+            title = title || url || "link";
+            
+            if (url) {
+                return `<a title="${title}" ${(url.startsWith("#")) ? "" : 'target="_blank"'} href="${url}">${title}</a>`;
+            }
+            else {
+                return title;
+            }
+        }
+        // Replace all instances of brackets [text] with the appropriate substitution
+        return text.replace(/\[(.*?)\]/g, function(match, p1) {
+            const label = p1.split(":", 2);
+            let result = "";
+            
+            switch (label[0]) {
+                case "image":
+                    result = getImage(tags.shift(), label[1]);
+                    break;
+                case "link":
+                    result = getLink(tags.shift(), label[1]);
+                    break;
+                case "author":
+                    result = `<span author>${label[1]}</span>`;
+                    break;
+            }
+            return result;
         })
     }
 
-    substituteTags(text, tags) {
-        let matches = text.match(/\[(.*?)\]/);
+    addContent(title, content, href)
+    {
+        function addParagraph(text)
+        {
+            if (text === "") return;
 
-        if (matches && tags) {
-            let result = '';
-            let label = matches[1].split(':', 2);
+            section.append(`<p style="white-space: pre-wrap;">${text}</p>`);
+        }
 
-            switch (label[0]) {
-                case 'image':
-                    result = this.getImage(tags.shift(), label[1]);
-                    break;
-                case 'link':
-                    result = this.getLink(tags.shift(), label[1]);
-                    break;
+        // Create section
+        const section = $("<section></section");
+        $("#content").append(section);
+
+        // Set the title
+        if (title) {
+            section.append(`<h4 id="${href}">${title}</h4>`);
+        }
+
+        // Set the content
+        const filterTags = ["</ul>", "</ol>", "</table>"];
+
+        if (filterTags.some(el => content.includes(el))) {
+
+            let nextChunk = content;
+            do {
+                let chunk;
+                // Find the next type of tag </ul> or </ol> or </table>.
+                // Match between </ ul or ol or table >
+                const endTag = nextChunk.match(/\<\/(ul|ol|table)\>/);
+
+                // Split the content where the end tag ends
+                [chunk, nextChunk] = nextChunk.split(endTag[0]);
+
+                // Find the opening tag using the endTag captured word, ul, ol, table
+                const openTag = chunk.match(`\<${endTag[1]}[^\>]*\>`);
+                // Split content where the opening tag is.
+                const parts = chunk.split(openTag[0]);
+
+                // Create the paragraph text
+                addParagraph(parts.shift());
+                
+                // Recreate the <ul> or <ol> or <table>
+                let tagContent = `${openTag[0]}${parts.shift()}${endTag[0]}`;
+                // Add table-wrapper div around tables to control overflow scroll
+                if (endTag[1] === "table") {
+                    tagContent = `<div class="table-wrapper">${tagContent}</div>`;
+                }
+                section.append(tagContent);
             }
-            text = text.replace(/\[(.*?)\]/, result);
-            return this.substituteTags(text, tags);
+            while (filterTags.some(el => nextChunk.includes(el)))
+
+            // If there is text after our last closing tag
+            if (nextChunk !== "") {
+                addParagraph(nextChunk);
+            }
         }
-        return text;
-    }
-
-    getImage(url, caption) {
-        let image = '';
-
-        if (!url) return image;
-
-        if (caption) { // since figure can't exist within text, close and open paragraph around the figure
-            image = '</p><figure class="figure"><a href="' + url + '" data-toggle="lightbox" data-max-width="800" data-footer="' + caption + '"><img title="help-image" src="' + url + '" class="figure-img img-fluid"></a><figcaption class="figure-caption text-center">' + caption + '</figcaption></figure><p style="white-space: pre-wrap;">';
-        } else {
-            image = '<a href="' + url + '" data-toggle="lightbox" data-max-width="800"><img title="help-image" src="' + url + '" class="img-max img-fluid" ></a>';
+        else{
+            addParagraph(content);
         }
-        return image;
-    }
-
-    getLink(url, title) {
-        title = title || url || "link";
-        
-        if (!url) return title;
-
-        if (url.startsWith('#')) {
-            return '<a title="' + title + '" href="' + url + '">' + title + '</a>';
-        }
-        return '<a title="' + title + '" target="_blank" href="' + url + '">' + title + '</a>';
-    }
-
-    addDropDownMenu(title, index) {
-        let link = '<a class="dropdown-item" href="#' + index + '">' + title + '</a>';
-        $('#scroll-dropmenu').append(link);
-    }
-
-    addContent(title, content, index) {
-        var string = title ? '<h4 id="' + index + '">' + title + '</h4>' : '';
-
-        if (content.includes('<ul>') || content.includes('<ol>')) {
-            // hackaround to get the split I want...if there's multiple bullet lists... can't be contained in <p>
-            var content_ulol = content;
-            content_ulol.replace('<ul>', '<split><ul>')
-            .replace('</ul>', '</ul><split>')
-            .replace('<ol>', '<split><ol>')
-            .replace('</ol>', '</ol><split>')
-            .split('<split>')
-            .forEach((chunk) => {
-                string += chunk.startsWith('<ul>') || chunk.startsWith('<ol>') ? chunk : '<p style="white-space: pre-wrap;">' + chunk + '</p>';
-            })
-        } else {
-            string += '<p style="white-space: pre-wrap;">' + content + '</p>';
-        }
-        $('#scroll-content').append(string);
     }
 }
