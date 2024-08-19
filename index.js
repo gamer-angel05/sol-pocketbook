@@ -1,5 +1,5 @@
-const publicSpreadsheetDoc = "https://script.google.com/macros/s/AKfycbxqQ0yYwkq8O7i39qGEfCvoltohnI2zNJQVow1Eq9U91PvG64aQDNiWj-MKaZorc5I/exec?req=pocketbook" // a bit slow, but works.
-//const publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNgGF22d_yAxqKOAM6RI/FoE%20Tips"; // opensource redirect for google sheet w/o auth
+//const publicSpreadsheetDoc = "https://script.google.com/macros/s/AKfycbxqQ0yYwkq8O7i39qGEfCvoltohnI2zNJQVow1Eq9U91PvG64aQDNiWj-MKaZorc5I/exec?req=pocketbook" // a bit slow, but works.
+const publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNgGF22d_yAxqKOAM6RI/FoE%20Tips"; // opensource redirect for google sheet w/o auth
 let isSticky = false;
 
 /**

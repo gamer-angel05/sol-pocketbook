@@ -59,7 +59,6 @@ input[type=reset]:active {
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 70px; /* Allow buffer so we don't scroll anchor links behind navbar */
-    /*overflow-y: scroll;*/
 }
 html,
 body {
