@@ -168,16 +168,16 @@ class formatData
         }
 
         // Set the content
-        const filterTags = ["</ul>", "</ol>", "</table>"];
+        const filterTags = ["ul", "ol", "table", "h5", "h6"];//</ul>", "</ol>", "</table>", "</h5>", "</h6>"];
 
-        if (filterTags.some(el => content.includes(el))) {
+        if (filterTags.some(el => content.includes(`</${el}>`))) {
 
             let nextChunk = content;
             do {
                 let chunk;
                 // Find the next type of tag </ul> or </ol> or </table>.
                 // Match between </ ul or ol or table >
-                const endTag = nextChunk.match(/\<\/(ul|ol|table)\>/);
+                const endTag = nextChunk.match(/\<\/(ul|ol|table|h5|h6)\>/);
 
                 // Split the content where the end tag ends
                 [chunk, nextChunk] = nextChunk.split(endTag[0]);
@@ -198,7 +198,7 @@ class formatData
                 }
                 section.append(tagContent);
             }
-            while (filterTags.some(el => nextChunk.includes(el)))
+            while (filterTags.some(el => nextChunk.includes(`</${el}>`)))
 
             // If there is text after our last closing tag
             if (nextChunk !== "") {
