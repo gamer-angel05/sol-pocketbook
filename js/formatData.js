@@ -153,9 +153,9 @@ class formatData
     {
         function addParagraph(text)
         {
-            if (text === "") return;
+            if (text.trim() === "") return;
 
-            section.append(`<p style="white-space: pre-wrap;">${text}</p>`);
+            section.append(`<p style="white-space: pre-wrap;">${text.trim()}</p>`);
         }
 
         // Create section
@@ -177,7 +177,7 @@ class formatData
                 let chunk;
                 // Find the next type of tag </ul> or </ol> or </table>.
                 // Match between </ ul or ol or table >
-                const endTag = nextChunk.match(/\<\/(ul|ol|table|h5|h6)\>/);
+                const endTag = nextChunk.match(`\<\/(${filterTags.join("|")})\>`);
 
                 // Split the content where the end tag ends
                 [chunk, nextChunk] = nextChunk.split(endTag[0]);
