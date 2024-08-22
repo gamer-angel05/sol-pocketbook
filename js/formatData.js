@@ -151,13 +151,6 @@ class formatData
 
     addContent(title, content, href)
     {
-        function addParagraph(text)
-        {
-            if (text.trim() === "") return;
-
-            section.append(`<p style="white-space: pre-wrap;">${text.trim()}</p>`);
-        }
-
         // Create section
         const section = $("<section></section");
         $("#content").append(section);
@@ -168,45 +161,25 @@ class formatData
         }
 
         // Set the content
-        const filterTags = ["ul", "ol", "table", "h5", "h6"];//</ul>", "</ol>", "</table>", "</h5>", "</h6>"];
+        const filterTags = ["ul", "ol", "table", "h5", "h6"].join("|");
+        const re = new RegExp(String.raw`(\<(?:${filterTags})[^\>]*\>[\s\S]*\<\/(?:${filterTags})\>)`, "g");
 
-        if (filterTags.some(el => content.includes(`</${el}>`))) {
+        for (let chunk of content.split(re)) {
+            // Element
+            if (re.test(chunk)) {
+                let el = $(chunk);
 
-            let nextChunk = content;
-            do {
-                let chunk;
-                // Find the next type of tag </ul> or </ol> or </table>.
-                // Match between </ ul or ol or table >
-                const endTag = nextChunk.match(`\<\/(${filterTags.join("|")})\>`);
-
-                // Split the content where the end tag ends
-                [chunk, nextChunk] = nextChunk.split(endTag[0]);
-
-                // Find the opening tag using the endTag captured word, ul, ol, table
-                const openTag = chunk.match(`\<${endTag[1]}[^\>]*\>`);
-                // Split content where the opening tag is.
-                const parts = chunk.split(openTag[0]);
-
-                // Create the paragraph text
-                addParagraph(parts.shift());
-                
-                // Recreate the <ul> or <ol> or <table>
-                let tagContent = `${openTag[0]}${parts.shift()}${endTag[0]}`;
-                // Add table-wrapper div around tables to control overflow scroll
-                if (endTag[1] === "table") {
-                    tagContent = `<div class="table-wrapper">${tagContent}</div>`;
+                if (el.get(0).localName === "table") {
+                    el = $(`<div class="table-wrapper"></div>`).append(el);
                 }
-                section.append(tagContent);
+                section.append(el);
             }
-            while (filterTags.some(el => nextChunk.includes(`</${el}>`)))
+            // Paragraph
+            else { 
+                if (chunk.trim() === "") continue;
 
-            // If there is text after our last closing tag
-            if (nextChunk !== "") {
-                addParagraph(nextChunk);
+                section.append(`<p style="white-space: pre-wrap;">${chunk.trim()}</p>`);
             }
-        }
-        else{
-            addParagraph(content);
         }
     }
 }
