@@ -33,8 +33,8 @@ $(function()
             el.attr("data-bs-toggle", "tooltip");
             el.attr("data-bs-placement", "right");
             el.addClass("text-decoration-none");
+            el.tooltip({trigger: "manual"});
         })
-        $(`[data-bs-toggle="tooltip"]`).tooltip({trigger : "manual"});
 
         // Plug in image lightbox
         $(`a[data-toggle="lightbox"]`).each(function() {
@@ -55,7 +55,7 @@ $(function()
  * Sticky navigation change bg color on scroll,
  * display back to top button.
  */
-$(document).on("scroll", function()
+$("body > div:first-child").on("scroll", function()
 {
     if ($(this).scrollTop() < 300) {
         isSticky = false;
