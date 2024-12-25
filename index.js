@@ -38,7 +38,6 @@ $(function()
         })
 
         // Plug in image lightbox
-        /*
         $(`a[data-toggle="lightbox"]`).each(function() {
             const el = $(this);
             el.on("click", function(event) {
@@ -46,12 +45,8 @@ $(function()
                 const lightbox = new Lightbox(el.get(0));
                 lightbox.show();
             })
-        })*/
-        document.querySelectorAll('.my-lightbox-toggle').forEach((el) => el.addEventListener('click', (e) => {
-            e.preventDefault();
-            const lightbox = new Lightbox(el);
-            lightbox.show();
-        }));
+        })
+
 
         // Hide loading indicator
         $("#content > div:first-child").addClass("d-none");

@@ -210,11 +210,14 @@ nav .dropdown-menu {
     border-top: none;
     border-bottom: 2px solid #009f4d;
 }
-#content .img-max {
+#content .img-max, #content .figure {
     max-width: 50%; 
     float: right; 
     margin-left: 20px;
     margin-bottom: 10px;
+}
+.figure-caption {
+    color: #dbc046;
 }
 
 /* 
