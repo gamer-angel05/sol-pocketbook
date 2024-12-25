@@ -274,4 +274,13 @@ nav .dropdown-menu {
         text-align: left;
         margin-left: 25px;
     }
+
+    /* Lightbox */
+    .lightbox-carousel {
+        height: 100%;
+    }
+    .ratio {
+        background-color: transparent !important;
+        height: 100%;
+    }
 }
