@@ -73,10 +73,10 @@ input[type=reset]:active {
 }
 
 html {
-    scroll-padding-top: 70px;
+    /*scroll-padding-top: 70px;
     overflow-y: auto;
     scrollbar-color: var(--color-light-green) var(--color-dark-green);
-    scrollbar-width: thin;
+    scrollbar-width: thin;*/
 }
 html,
 body {
@@ -92,6 +92,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: rgba(16, 64, 13, 1);
+}
+body > div:first-child {
+    scroll-padding-top: 70px;
+    overflow-y: auto;
+    scrollbar-color: var(--color-light-green) var(--color-dark-green);
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
 }
 
 #main-container {

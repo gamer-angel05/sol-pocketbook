@@ -62,7 +62,7 @@ $(function()
  * Sticky navigation change bg color on scroll,
  * display back to top button.
  */
-$(document).on("scroll", function()
+$(`body > div:first-child`).on("scroll", function()
 {
     if ($(this).scrollTop() < 300) {
         isSticky = false;
