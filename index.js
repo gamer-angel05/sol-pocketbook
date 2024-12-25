@@ -1,5 +1,5 @@
-//const publicSpreadsheetDoc = "https://script.google.com/macros/s/AKfycbxqQ0yYwkq8O7i39qGEfCvoltohnI2zNJQVow1Eq9U91PvG64aQDNiWj-MKaZorc5I/exec?req=pocketbook" // a bit slow, but works.
-const publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNgGF22d_yAxqKOAM6RI/FoE%20Tips"; // opensource redirect for google sheet w/o auth
+const publicSpreadsheetDoc = "https://script.google.com/macros/s/AKfycbxqQ0yYwkq8O7i39qGEfCvoltohnI2zNJQVow1Eq9U91PvG64aQDNiWj-MKaZorc5I/exec?req=pocketbook" // a bit slow, but works.
+//const publicSpreadsheetDoc = "https://opensheet.elk.sh/1-XABpNzY6jgg_Bh9KaDKS-pPNgGF22d_yAxqKOAM6RI/FoE%20Tips"; // opensource redirect for google sheet w/o auth
 let isSticky = false;
 
 /**
@@ -10,6 +10,7 @@ let isSticky = false;
 $(function() 
 {
     fetch(publicSpreadsheetDoc)
+    //fetch("response.json")
     .then(response => response.json())
     .then(data => {
         // Format the sheet data
@@ -37,6 +38,7 @@ $(function()
         })
 
         // Plug in image lightbox
+        /*
         $(`a[data-toggle="lightbox"]`).each(function() {
             const el = $(this);
             el.on("click", function(event) {
@@ -44,7 +46,12 @@ $(function()
                 const lightbox = new Lightbox(el.get(0));
                 lightbox.show();
             })
-        })
+        })*/
+        document.querySelectorAll('.my-lightbox-toggle').forEach((el) => el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const lightbox = new Lightbox(el);
+            lightbox.show();
+        }));
 
         // Hide loading indicator
         $("#content > div:first-child").addClass("d-none");
@@ -55,7 +62,7 @@ $(function()
  * Sticky navigation change bg color on scroll,
  * display back to top button.
  */
-$("body > div:first-child").on("scroll", function()
+$(document).on("scroll", function()
 {
     if ($(this).scrollTop() < 300) {
         isSticky = false;

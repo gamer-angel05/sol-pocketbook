@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap');
 
+:root {
+    --footer-height: 25px;
+    --color-dark-green: rgb(5, 41, 3);
+    --color-light-green: #009f4d;
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -57,15 +63,26 @@ input[type=reset]:active {
     box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
 }
 
-
+.bg-cover {
+    background: url("../images/bg-xsmall.webp") no-repeat center;
+    background-size: cover !important;
+    position: fixed;
+    height: 100vh;
+    width: 99.5vw; /* Adjust for perma-scroll */
+    z-index: -1;
+}
 
 html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 70px; /* Allow buffer so we don't scroll anchor links behind navbar */
+    scroll-padding-top: 70px;
+    overflow-y: auto;
+    scrollbar-color: var(--color-light-green) var(--color-dark-green);
+    scrollbar-width: thin;
 }
 html,
 body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 body {
     background-image: linear-gradient(to bottom, rgba(18, 114, 34, 0.1), rgba(28, 103, 88, 0.2)),
@@ -74,9 +91,11 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: rgba(16, 64, 13, 1);
 }
-body > div:first-child {
-    overflow-y: auto;
+
+#main-container {
+    min-height: calc(100vh - var(--footer-height));
 }
 /* BS5 Lightbox */
 /* Prevent Lightbox from hiding the scroll */
@@ -112,25 +131,29 @@ nav {
 nav.sticky {
     background-color: rgba(7, 52, 4, 0.8);
 }
+.dropdown {
+    text-align: center;
+}
 nav.sticky .js-top {
     display: block;
 }
 nav .js-top {
     display: none;
+    top: 0;
+    right: 15px;
 }
 .js-top a {
     font-size: 1.8rem;
-    position: absolute;
-    right: 15px;
 }
 .js-top a,
 .js-top a:hover,
 .js-top a:active,
 .js-top a:link,
 .js-top a:visited {
-    color: #fff;
+    color: #fffae6;
     box-shadow: none;
 }
+
 /*
     Section button and dropdown
 */
@@ -219,8 +242,11 @@ nav .dropdown-menu {
     text-align: right; 
 }
 
+.footer {
+    height: var(--footer-height);
+}
 
-footer > div:first-child {
+.footer > div:first-child {
     background-color: rgb(5, 41, 3);
     color: #EEF2E6;
 }
@@ -232,5 +258,10 @@ footer > div:first-child {
     }
     table th {
         word-wrap:break-word;
+    }
+
+    .sticky .dropdown {
+        text-align: left;
+        margin-left: 25px;
     }
 }

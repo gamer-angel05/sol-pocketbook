@@ -112,7 +112,7 @@ class formatData
         function getImage(url, caption) 
         {
             if (typeof(url) === "string") {
-                return `<a href="${url}" data-toggle="lightbox" data-caption="${caption || ""}"><img src="${url}" class="img-max img-fluid"></a>`;
+                return `<a href="${url}" data-toggle="lightbox" data-caption="${caption || ""}"><img src="${url}" class="img-max img-fluid my-lightbox-toggle"></a>`;
             } 
             else {
                 return "";
