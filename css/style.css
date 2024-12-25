@@ -279,6 +279,9 @@ nav .dropdown-menu {
     .lightbox-carousel {
         height: 100%;
     }
+    .ratio-16x9 {
+        --bs-aspect-ratio: 75%;
+    }
     .ratio {
         background-color: transparent !important;
         height: 100%;
